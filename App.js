@@ -38,10 +38,13 @@ const Counter = () => {
     // console.log(counter)
   }
   return (
-    <View style={{flexDirection: 'row', justifyContent: 'space-between', width: '20%' }}>
-      <Button title="+" onPress={inc} />
-      <Text style={{ fontSize: 24 }}>{getCounter}</Text>
-      <Button title="-" onPress={() => setCounter(getCounter - 1)} />
+    <View>
+      <Text style={{ fontSize: 24 }}>Function Component</Text>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '20%' }}>
+        <Button title="+" onPress={inc} />
+        <Text style={{ fontSize: 24 }}>{getCounter}</Text>
+        <Button title="-" onPress={() => setCounter(getCounter - 1)} />
+      </View>
     </View>
   )
 }
