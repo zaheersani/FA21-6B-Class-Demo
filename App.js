@@ -2,11 +2,11 @@ import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
 import {TextInput, TouchableOpacity, StyleSheet, Text, View, Button } from 'react-native';
 
-const MyButton = ({text}) => {
+const MyButton = ({ text, bgcolor = 'blue', onTap}) => {
   return (
     <TouchableOpacity
       style={{
-        backgroundColor: 'white',
+        backgroundColor: bgcolor,
         width: 50,
         height: 50,
         borderRadius: 100,
@@ -16,6 +16,7 @@ const MyButton = ({text}) => {
         borderWidth: 1
       }}
       activeOpacity={0.5}
+      onPress={ () => onTap(text)}
     >
       <Text
         style={{ fontSize: 24, color: 'black', alignSelf: 'center' }}
@@ -28,6 +29,11 @@ const NumPad = () => {
   const [getNum, setNum] = useState(0)
   const [btnFeedback, setBtnFeedback] = useState('Not Presse')
   const [text, setText] = useState('')
+
+  const onBtnPress = (n) => {
+    setNum(getNum + n)
+  }
+
   return (
     <View style={styles.container}>
       <Text
@@ -58,9 +64,9 @@ const NumPad = () => {
         justifyContent: 'space-between'
       }}>
         {/* <Button title="1" onPress={() => setNum(getNum + "1")} /> */}
-        <MyButton text="1" />
-        <MyButton text="2" />
-        <MyButton text="3" />
+        <MyButton text="1" bgcolor="red" onTap={onBtnPress} />
+        <MyButton text="2" onTap={onBtnPress} />
+        <MyButton text="3" onTap={onBtnPress} />
       </View>
       <View style={{ flexDirection: 'row' }}>
         <Button title="4" />
