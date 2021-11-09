@@ -1,24 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
+import { setStatusBarBackgroundColor, StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
 import {ScrollView, FlatList, TextInput, TouchableOpacity, StyleSheet, Text, View, Button, ToastAndroid } from 'react-native';
 
 function App() {
-  var arr = [34, 23, 343, 232, 33, 22, 33, 77, 88, 88, 22, 33, 77, 88, 88]
+  const [getItem, setItem] = React.useState('')
+  const [getList, setList] = React.useState([])
+  const addItem = () => {
+    // var arr = getList
+    // arr.push(getItem)
+    setList([...getList, getItem])
+  }
   return (
     <View style={styles.container}>
+      <View style={{flexDirection: 'row', padding: 5, margin: 5}}>
+      <TextInput
+        placeholder="Enter Item"
+        onChangeText={(text) => setItem(text)}
+      />
+        <Button title="Add" onPress={addItem} />
+      </View>
       <FlatList
-        style={{paddingTop: 20, width: '100%', padding: 5}}
-        data={arr}
+        style={{ paddingTop: 20, width: '100%', padding: 5 }}
+        data={getList}
         renderItem={({ item, index }) =>
-          <TouchableOpacity
-            style={{ backgroundColor: 'pink', margin: 10, width:'40%'}}
-          >
-            <Text key={index} style={{ fontSize: 34 }}>item: {item}</Text>
-          </TouchableOpacity>
+          <Text style={{fontSize: 34}}>Item: {item}</Text>
         }
-        ListHeaderComponent={<Text>Header</Text>}
-        ListFooterComponent={<Text>Footer</Text>}
-        numColumns={2}
+        ListEmptyComponent={<Text>No Item to Display</Text>}
         refreshing={false}
         onRefresh={()=>ToastAndroid.show('fetching data..', ToastAndroid.SHORT)}
       />
@@ -31,6 +38,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    paddingTop: 20
   },
 });
 
